@@ -1,0 +1,23 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "types": [
+      "vite/client"
+    ],
+    "paths": {
+      "@spend-lens/core": [
+        "../../packages/core/src/index.ts"
+      ],
+      "@spend-lens/banks": [
+        "../../packages/banks/src/index.ts"
+      ],
+      "@spend-lens/ui": [
+        "../../packages/ui/src/index.ts"
+      ]
+    }
+  },
+  "include": [
+    "src",
+    "vite.config.ts"
+  ]
+}

@@ -1,6 +1,6 @@
 # Spend Lens — Architecture
 
-Status: phase 1 done (15 Nov 26) · phases 2–5 proposed
+Status: phases 1–2 done (15 Nov 26) · phases 3–5 proposed
 Scope: how Spend Lens grows from one HTML file into a maintainable product with accounts, sync across devices, and a backend — without giving up its core promise that **your statements stay private**.
 
 ---
@@ -369,7 +369,14 @@ Each phase ships on its own; the app keeps working throughout.
 - The folders sit at the project root (`spend-dashboard/`) rather than a separate `spend-lens/` repo; `apps/web` arrives in phase 2, when `index.html` is rebuilt.
 - How to work on it: [DEVELOPMENT.md](DEVELOPMENT.md) · adding a bank: [adding-a-bank.md](adding-a-bank.md).
 
-**Existing data:** phase 2 reads today's `spendlens.v1` (localStorage and IndexedDB) once and writes it into the new schema, so nobody has to re-upload statements.
+### Phase 2 — done (15 Nov 26)
+
+- `apps/web` is the app: React 18 + Vite + TypeScript, Zustand for state, Phosphor React icons. `packages/ui` holds the design (the same CSS as before, an `Icon` component and a focus-trap hook).
+- `pnpm build` makes **one self-contained `index.html`** (all code and styles inlined, via `vite-plugin-singlefile`) and copies it to the project root, so double-clicking `index.html` still works and no `lib/` folder is needed next to it. Only Google Fonts still load from the web.
+- Statements are parsed in a background worker; if a browser won't start one, parsing falls back to the page after 5 s. pdf.js runs in the page (its "fake worker"), which is what works on `file://`.
+- Pages switch with a small hash router in the store (`#/overview`, `#/trends`, …), not TanStack Router: six pages didn't need it.
+- Storage is unchanged: the same `spendlens.v1` keys in IndexedDB and localStorage, so data saved by the old app loads straight away. The schema move planned here is deferred to phase 4, when sync needs it.
+- Verified: old and new app on the same data show identical text on all six pages, unfiltered and with a month and a category selected; element structure and sizes match apart from icons (font → SVG, same 15/18/22 px sizes). CSV import, locked-PDF unlock (wrong then right password), dialogs, tooltips, sorting and re-categorising tested in the browser. 36 unit tests pass.
 
 ---
 
