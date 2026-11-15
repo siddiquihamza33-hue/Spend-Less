@@ -4,7 +4,7 @@ A private credit card statement reader. Open `index.html` in Chrome, upload a CS
 
 ## Use it
 
-Open `index.html` in Chrome. It is a single self-contained file; your statements stay saved in the browser between visits.
+Open `index.html` in Chrome. It is a single self-contained file that needs no internet. Your statements stay saved in the browser between visits. Served from a web address (the `apps/web/dist/` folder), it can also be installed as an app and opened offline.
 
 ## Work on it
 
@@ -18,7 +18,7 @@ pnpm check          # type-check, run all tests, rebuild index.html
 
 More in [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md). Architecture and roadmap: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
-## Layout today (phase 2 of the roadmap)
+## Layout today (phase 3 of the roadmap)
 
 ```text
 spend-dashboard/

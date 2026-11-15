@@ -1,0 +1,17 @@
+{
+  "name": "Spend Lens",
+  "short_name": "Spend Lens",
+  "description": "A private credit card statement reader. Your statements never leave this device.",
+  "id": "./",
+  "start_url": "./#/overview",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f3f0e8",
+  "theme_color": "#5b3fd9",
+  "categories": ["finance", "productivity"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

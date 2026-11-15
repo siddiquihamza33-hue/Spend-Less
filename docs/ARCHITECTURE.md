@@ -1,6 +1,6 @@
 # Spend Lens — Architecture
 
-Status: phases 1–2 done (15 Nov 26) · phases 3–5 proposed
+Status: phases 1–3 done (15 Nov 26; phase 3 not yet hosted) · phases 4–5 proposed
 Scope: how Spend Lens grows from one HTML file into a maintainable product with accounts, sync across devices, and a backend — without giving up its core promise that **your statements stay private**.
 
 ---
@@ -378,13 +378,11 @@ Each phase ships on its own; the app keeps working throughout.
 - Storage is unchanged: the same `spendlens.v1` keys in IndexedDB and localStorage, so data saved by the old app loads straight away. The schema move planned here is deferred to phase 4, when sync needs it.
 - Verified: old and new app on the same data show identical text on all six pages, unfiltered and with a month and a category selected; element structure and sizes match apart from icons (font → SVG, same 15/18/22 px sizes). CSV import, locked-PDF unlock (wrong then right password), dialogs, tooltips, sorting and re-categorising tested in the browser. 36 unit tests pass.
 
----
+### Phase 3 — built (15 Nov 26), hosting later
 
-## 10. Open decisions
-
-| Decision | Recommendation | Alternative |
-|---|---|---|
-| Sync encryption | End-to-end, as above | Server-side encryption only (enables server insights, weaker privacy) |
-| Hosting for API | Vercel Functions (same place as web) | Fly.io container if long-running jobs are needed |
-| Auth | Supabase Auth | Clerk, or passkeys-only |
-| UI framework | React | Svelte (smaller bundle, smaller hiring pool) |
+- **Fonts are self-hosted:** Roboto Serif (optical size + weight, normal and italic) and Roboto (weight, normal and italic), Latin subset, from `@fontsource-variable`, declared in `packages/ui/src/fonts.css` and embedded in the page. The app now makes no requests at all except to its own files, so the double-clicked file also works with no internet.
+- **Installable:** `apps/web/public/manifest.webmanifest` plus icons in `apps/web/public/icons` (drawn by `scripts/make-icons.py`: any, maskable and Apple touch icon).
+- **Offline:** `dist/sw.js` is generated from `apps/web/src/sw.template.js` with a version hash of the built page, so each build replaces the old cache. Pages are network-first (updates arrive as soon as you're online), with the cached page used offline. Other files are cache-first.
+- `src/pwa.ts` adds the manifest link and registers the worker **only when served over http(s)**. A double-clicked file (`file://`) can't use service workers, so it is left exactly as before.
+- **To host:** deploy the whole `apps/web/dist/` folder (index.html, sw.js, manifest, icons) to any static host over HTTPS. Data saved under `file://` doesn't move to a web address by itself, so hosting needs a one-time export/import of saved data first.
+- Verified on localhost: the worker controls the page and caches all 8 files, the manifest and icons load, fonts load from the bundle with no requests to Google, and with the server stopped a reload still opens the app with its data.

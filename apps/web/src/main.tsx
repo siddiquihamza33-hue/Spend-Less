@@ -1,8 +1,10 @@
 import { createRoot } from 'react-dom/client';
+import '@spend-lens/ui/fonts.css';
 import '@spend-lens/ui/styles.css';
 import { App } from './App';
 import { PAGES, pageFromHash, useApp, type AppState, type Page } from './state/store';
 import { loadDeep, loadQuick, requestPersistence, save, type Saved } from './state/persist';
+import { setupPwa } from './pwa';
 
 /** Puts saved data (and the saved screen, unless the URL names a page) into the store. */
 function apply(d: Saved) {
@@ -23,6 +25,7 @@ requestPersistence();
 document.documentElement.removeAttribute('data-theme');   // appearance follows the system setting
 
 createRoot(document.getElementById('root')!).render(<App />);
+setupPwa();
 
 let ready = false;
 loadDeep().then(d => { if (d) apply(d); ready = true; }, () => { ready = true; });
