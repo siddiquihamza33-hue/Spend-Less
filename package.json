@@ -1,0 +1,21 @@
+{
+  "name": "spend-lens",
+  "private": true,
+  "description": "Spend Lens — private credit card statement reader",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "check": "pnpm typecheck && pnpm test && pnpm build",
+    "check:real-hbl": "node scripts/check-real-statement.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "esbuild": "^0.28.2",
+    "pdfjs-dist": "3.11.174",
+    "typescript": "^7.0.2",
+    "vitest": "^5.1.0"
+  }
+}

@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.env
+.env.*
+# Never commit real statements. Synthetic fixtures live in packages/banks/fixtures.
+*.pdf
+*.xlsx
+*.xls
+!packages/banks/fixtures/**
+
+# macOS
+.DS_Store
