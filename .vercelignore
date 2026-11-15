@@ -1,0 +1,10 @@
+# Never upload statements, spreadsheets or secrets; Vercel rebuilds everything else from source.
+node_modules
+**/node_modules
+apps/web/dist
+*.pdf
+*.xlsx
+*.xls
+!packages/banks/fixtures/**
+.env*
+.DS_Store
