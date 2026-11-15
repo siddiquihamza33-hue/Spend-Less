@@ -1,7 +1,7 @@
 {
   "name": "spend-lens",
   "private": true,
-  "description": "Spend Lens \u2014 private credit card statement reader",
+  "description": "Spend Lens — private credit card statement reader",
   "type": "module",
   "scripts": {
     "build": "node scripts/build.mjs && pnpm --filter @spend-lens/web build",
@@ -18,5 +18,9 @@
     "pdfjs-dist": "3.11.174",
     "typescript": "^7.0.2",
     "vitest": "^5.1.0"
+  },
+  "packageManager": "pnpm@10.33.0",
+  "engines": {
+    "node": ">=20"
   }
 }
